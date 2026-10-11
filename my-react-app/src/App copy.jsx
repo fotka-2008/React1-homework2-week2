@@ -1,8 +1,8 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { API, IMAGE_API } from './API.js';
-import Modal from './Modal.jsx';
+import { API, IMAGE_API } from './Companents/Api.js';
+import Modal from './Companents/Modal.jsx';
 
 const App = () => {
   const [users, setUsers] = useState([]);
