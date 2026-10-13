@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API, IMAGE_API } from './Companents/Api.js';
 import Modal from './Companents/Modal.jsx';
+import Button from '@mui/material/Button';
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -136,12 +137,12 @@ const App = () => {
             Пользователи
           </h1>
 
-          <button
-            className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          <Button
+            variant="contained"
             onClick={() => setOpen(true)}
           >
             + Добавить пользователя
-          </button>
+          </Button>
         </div>
 
         <div className="mb-6">
@@ -186,26 +187,34 @@ const App = () => {
                 </div>
 
                 <div className="flex gap-2 border-t border-gray-100 pt-3 text-xs">
-                  <button
-                    className="flex-1 rounded bg-gray-100 py-1.5 text-gray-700 hover:bg-gray-200"
+                  <Button
+                    className="flex-1"
+                    variant="outlined"
+                    size="small"
                     onClick={() => ViewData(el)}
                   >
                     Инфо
-                  </button>
+                  </Button>
 
-                  <button
-                    className="flex-1 rounded bg-gray-100 py-1.5 text-gray-700 hover:bg-gray-200"
+                  <Button
+                    className="flex-1"
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
                     onClick={() => EditData(el)}
                   >
                     Ред.
-                  </button>
+                  </Button>
 
-                  <button
-                    className="flex-1 rounded bg-red-50 py-1.5 text-red-600 hover:bg-red-100"
+                  <Button
+                    className="flex-1"
+                    variant="contained"
+                    color="error"
+                    size="small"
                     onClick={() => deleteUser(el.id)}
                   >
                     Удалить
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))}

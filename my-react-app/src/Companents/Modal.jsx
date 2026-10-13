@@ -1,4 +1,6 @@
 import './Modal.css';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 
 export default function Modal({ header, open, onClose, onSave, children }) {
   if (!open) return null;
@@ -10,29 +12,29 @@ export default function Modal({ header, open, onClose, onSave, children }) {
           <div className="modal-header">
             <h3>{header}</h3>
 
-            <button
-              type="button"
+            <IconButton
               className="close-btn"
+              size="small"
               onClick={onClose}
             >
               ×
-            </button>
+            </IconButton>
           </div>
 
           <div className="modal-content">{children}</div>
 
           <div className="modal-actions">
-            <button
-              type="button"
-              className="cancel-btn"
+            <Button
+              variant="outlined"
+              color="inherit"
               onClick={onClose}
             >
               Cancel
-            </button>
+            </Button>
 
-            <button type="submit" className="submit-btn">
+            <Button type="submit" variant="contained">
               Save
-            </button>
+            </Button>
           </div>
         </form>
       </div>
