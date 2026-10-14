@@ -3,7 +3,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API, IMAGE_API } from './Companents/Api.js';
 import Modal from './Companents/Modal.jsx';
-import Button from '@mui/material/Button';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Chip,
+} from '@mui/material';
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -155,71 +165,67 @@ const App = () => {
           />
         </div>
 
-        {filteredUsers.length === 0 ? (
-          <div className="rounded-md border border-gray-200 bg-white py-12 text-center text-sm text-gray-500">
-            Пользователи не найдены
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {filteredUsers.map((el) => (
-              <div
-                key={el.id}
-                className="flex flex-col justify-between rounded-md border border-gray-200 bg-white p-4"
-              >
-                <div>
-                  <h2 className="mb-3 text-center font-medium text-gray-900">
-                    {el.name}
-                  </h2>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Фото</TableCell>
+                <TableCell>Имя</TableCell>
+                <TableCell>Описание</TableCell>
+                <TableCell>Статус</TableCell>
+                <TableCell>Действия</TableCell>
+              </TableRow>
+            </TableHead>
 
-                  <img
-                    className="mx-auto mb-3 h-20 w-20 rounded-full border border-gray-100 object-cover"
-                    src={
-                      el.images?.[0]?.imageName
-                        ? `${IMAGE_API}/${el.images[0].imageName}`
-                        : 'https://placehold.co/80'
-                    }
-                    alt={el.name || 'User'}
-                  />
-
-                  <p className="mb-4 line-clamp-2 text-center text-xs text-gray-500">
-                    {el.description || 'Нет описания'}
-                  </p>
-                </div>
-
-                <div className="flex gap-2 border-t border-gray-100 pt-3 text-xs">
-                  <Button
-                    className="flex-1"
-                    variant="outlined"
-                    size="small"
-                    onClick={() => ViewData(el)}
-                  >
-                    Инфо
-                  </Button>
-
-                  <Button
-                    className="flex-1"
-                    variant="outlined"
-                    color="secondary"
-                    size="small"
-                    onClick={() => EditData(el)}
-                  >
-                    Ред.
-                  </Button>
-
-                  <Button
-                    className="flex-1"
-                    variant="contained"
-                    color="error"
-                    size="small"
-                    onClick={() => deleteUser(el.id)}
-                  >
-                    Удалить
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+            <TableBody>
+              {filteredUsers.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">
+                    Пользователи не найдены
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredUsers.map((el) => (
+                  <TableRow key={el.id}>
+                    <TableCell>
+                      <img
+                        className="h-12 w-12 rounded-full object-cover"
+                        src={
+                          el.images?.[0]?.imageName
+                            ? `${IMAGE_API}/${el.images[0].imageName}`
+                            : 'https://placehold.co/50'
+                        }
+                        alt={el.name || 'User'}
+                      />
+                    </TableCell>
+                    <TableCell>{el.name}</TableCell>
+                    <TableCell>{el.description || 'Нет описания'}</TableCell>
+                    <TableCell>
+                      <Chip
+                        size="small"
+                        label={el.isCompleted ? 'Неактивен' : 'Активен'}
+                        color={el.isCompleted ? 'error' : 'success'}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex gap-2">
+                        <Button size="small" variant="outlined" onClick={() => ViewData(el)}>
+                          Инфо
+                        </Button>
+                        <Button size="small" variant="outlined" color="secondary" onClick={() => EditData(el)}>
+                          Ред.
+                        </Button>
+                        <Button size="small" variant="contained" color="error" onClick={() => deleteUser(el.id)}>
+                          Удалить
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
         <Modal
           header="Новый пользователь"
@@ -403,7 +409,7 @@ const App = () => {
                     : 'border-green-200 bg-green-50 text-green-600'
                 }`}
               >
-                {viewData.isCompleted ? 'Неактивен' : 'Активен'}
+                {viewData.isCompleted ? 'Aктивен' : 'Неактивен'}
               </span>
 
               <p className="mt-1 text-xs text-gray-600">

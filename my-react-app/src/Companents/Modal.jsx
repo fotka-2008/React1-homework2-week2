@@ -1,43 +1,20 @@
-import './Modal.css';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 
 export default function Modal({ header, open, onClose, onSave, children }) {
-  if (!open) return null;
-
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-        <form onSubmit={onSave} className="modal-form">
-          <div className="modal-header">
-            <h3>{header}</h3>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+      <form onSubmit={onSave}>
+        <DialogTitle>{header}</DialogTitle>
 
-            <IconButton
-              className="close-btn"
-              size="small"
-              onClick={onClose}
-            >
-              ×
-            </IconButton>
-          </div>
+        <DialogContent>{children}</DialogContent>
 
-          <div className="modal-content">{children}</div>
-
-          <div className="modal-actions">
-            <Button
-              variant="outlined"
-              color="inherit"
-              onClick={onClose}
-            >
-              Cancel
-            </Button>
-
-            <Button type="submit" variant="contained">
-              Save
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="submit" variant="contained">
+            Save
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 }
